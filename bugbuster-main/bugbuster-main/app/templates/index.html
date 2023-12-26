@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="icon" type="image/x-icon" href="./assets/logo.png" />
+    <title>BugBuster</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='stylesheets/style.css')}}"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <h1>BugBuster.</h1>
+        </div>
+        <ul class="navigation">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#how-section">How it Works</a></li>
+          <li><a href="#scan-section">Scan Now</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="blob right-top"></div>
+      <section class="hero" id="hero">
+        <div class="hero-container1">
+          <h1 class="brown">Secure Your Android Apps</h1>
+          <p>
+            Identify and Address Vulnerabilities with Our Powerful App Scanner
+          </p>
+          <a href="#scan-section"><button class="btn">Try Now</button></a>
+        </div>
+        <div class="hero-container2">
+          <img
+            class="hero-img"
+            src="https://thumbs.dreamstime.com/b/electronic-bug-circuit-computer-virus-concept-spy-generative-ai-281832203.jpg"
+            alt=""
+          />
+        </div>
+      </section>
+      <hr />
+      <section class="how-section" id="how-section">
+        <h3>How it works</h3>
+        <div>
+          <ol>
+            <li>
+              Upload Your App - Start by uploading your Android app to our
+              secure platform.
+            </li>
+            <li>
+              Scan Your App - Our cutting-edge scanner analyzes your app for
+              vulnerabilities.
+            </li>
+            <li>
+              Review Results - Access detailed vulnerability reports and
+              recommended fixes.
+            </li>
+            <li>
+              Enhance Security - Take action to secure your app and protect your
+              users.
+            </li>
+          </ol>
+        </div>
+        <div class="blob left-top"></div>
+      </section>
+      <hr />
+      <section class="scan-section" id="scan-section">
+        <h3>Scan Your Android App</h3>
+        <p>Upload your apk file here</p>
+        <div id="hint-div">
+          <img
+            width="200"
+            id="apk-image"
+            src="{{url_for('static', filename='images/upload.png')}}"
+            alt="apk"
+          />
+        </div>
+        <div class="input-file-div">
+          <form
+            action="/upload"
+            method="POST"
+            enctype="multipart/form-data"
+            id="apkUploadForm"
+          >
+            <input id="file" type="file" name="file" required accept=".apk" />
+            <input id="submit-btn" type="submit" value="Scan"  class="btn" />
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p class="madeby">Designed and Developed with ♥ by team Xploiters</p>
+    </footer>
+    <script>
+      document
+        .getElementById("apkUploadForm")
+        .addEventListener("submit", () => {
+          document.getElementById("file").style.display = "none";
+          document.getElementById("apk-image").src =
+            "{{url_for('static', filename='images/loading.webp')}}";
+          let pEl = document.createElement("p");
+          pEl.textContent = "Please wait while your app is being scanned...";
+          document.getElementById("hint-div").appendChild(pEl);
+          document.getElementById("submit-btn").setAttribute("disabled", true);
+          document.getElementById("submit-btn").classList.add("btn-disabled");
+        });
+    </script>
+  </body>
+</html>
